@@ -54,8 +54,7 @@ public class InventoryManager : MonoBehaviour
     {
         float newPosX = startPosX * -dimensionX;
         float newWidth = startWidth * dimensionX;
-        float newPosY = startPosX * -dimensionX;
-        float newHeight = startWidth * dimensionX;
+
 
         rect.sizeDelta = new Vector2(newWidth, rect.sizeDelta.y);
         rect.position = new Vector2(-newPosX, rect.position.y);
