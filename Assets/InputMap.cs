@@ -171,17 +171,6 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""b1cc2dc9-815a-437b-8069-4a54dc546e7c"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""Movement"",
                     ""id"": ""f6a3853a-0dda-4e28-800e-6350c3761cc4"",
                     ""path"": ""2DVector"",

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 
 public class InputManager : MonoBehaviour
@@ -14,6 +15,12 @@ public class InputManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+    }
+    private void Start()
+    {
+        Inputs = new InputMap();
+
+        Inputs.Default.Enable();
     }
 
 }

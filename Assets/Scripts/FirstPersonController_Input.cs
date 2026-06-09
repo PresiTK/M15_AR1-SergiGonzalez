@@ -20,10 +20,10 @@ public class FirstPersonController_Input : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        controller.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")), Time.fixedDeltaTime);
+        controller.Move(InputManager.Inputs.Default.Movement.ReadValue<Vector2>(), Time.fixedDeltaTime);
     }
     private void LateUpdate()
     {
-        controller.Look(new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")));
+        controller.Look(InputManager.Inputs.Default.Look.ReadValue<Vector2>());
     }
 }
