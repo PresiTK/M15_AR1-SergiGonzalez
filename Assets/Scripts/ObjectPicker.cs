@@ -178,7 +178,7 @@ public class ObjectPicker : MonoBehaviour
     void StartPickup()
     {
         if (pickedObject != null || pickableObject == null || state != PICKSTATE.AVAILABLE) return;
-        if (Input.GetMouseButtonDown(0))
+        if (InputManager.Inputs.Default.Grab.IsPressed())
         {
             pickedObject = pickableObject;
             pickableObject = null;
@@ -206,7 +206,7 @@ public class ObjectPicker : MonoBehaviour
     void EndPickup()
     {
         if (pickedObject == null) return;
-        if (Input.GetMouseButtonUp(0))
+        if (InputManager.Inputs.Default.Grab.WasReleasedThisFrame())
         {
             pickedObject.rb.linearDamping = pickedRbDragLinearOriginal;
             pickedObject.rb.angularDamping = pickedRbDragAngularOriginal;
