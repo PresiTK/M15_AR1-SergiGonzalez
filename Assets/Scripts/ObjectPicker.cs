@@ -142,7 +142,37 @@ public class ObjectPicker : MonoBehaviour
     }
     void HandlePickingUI()
     {
+        if (pickableObject != null)
+        {
+            Vector2 screenPos = cam.WorldToScreenPoint(pickableObject.transform.position);
+            Vector2 anchorMax;
 
+            anchorMax.x = Screen.width;
+            anchorMax.y = Screen.height;
+
+            if (screenPos.x > anchorMax.x) screenPos.x = anchorMax.x;
+            if (screenPos.y > anchorMax.y) screenPos.y = anchorMax.y;
+            if (screenPos.x < 0.0f) screenPos.x = 0.0f;
+            if (screenPos.y < 0.0f) screenPos.y = 0.0f;
+
+            pickingIcon.transform.position = screenPos;
+        }
+
+        switch (state)
+        {
+            case PICKSTATE.FAR:
+                pickingIcon.alpha = pickingIconFar;
+                break;
+            case PICKSTATE.BLOCKED:
+                pickingIcon.alpha = pickingIconBlocked;
+                break;
+            case PICKSTATE.AVAILABLE:
+                pickingIcon.alpha = pickingIconAvailable;
+                break;
+            case PICKSTATE.NOTVISIBLE:
+                pickingIcon.alpha = 0;
+                break;
+        }
     }
 
     void StartPickup()
@@ -164,7 +194,7 @@ public class ObjectPicker : MonoBehaviour
     {
         if (pickedObject == null) return;
 
-        distance += Input.mouseScrollDelta.y * scrollSensitivity;
+        distance += InputManager.Inputs.Default.ChangeItem.ReadValue<int>() * scrollSensitivity;
         distance = Mathf.Clamp(distance, distanceMin, distanceMax);
         Vector3 forcepos = pickedObject.transform.TransformPoint(pickedPosition);
         Vector3 targetPos = cam.transform.position + cam.transform.forward * distance;

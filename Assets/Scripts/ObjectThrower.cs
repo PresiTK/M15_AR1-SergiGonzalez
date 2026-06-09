@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class ObjectThrower : MonoBehaviour
@@ -21,13 +22,21 @@ public class ObjectThrower : MonoBehaviour
     public float forceSpeed;
     public float distance = 1;
 
+    private void Start()
+    {
+        forceIndicator.transform.parent.gameObject.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (InputManager.Inputs.Default.Throw.IsPressed())
         {
             force += forceSpeed * Time.deltaTime;
+            forceIndicator.transform.parent.gameObject.SetActive(true);
+
+            forceIndicator.fillAmount = Mathf.InverseLerp(forceMin, forceMax, force);
+
             if (force < forceMin)
             {
                 force = forceMin;
@@ -39,8 +48,11 @@ public class ObjectThrower : MonoBehaviour
                 forceSpeed *= -1;
             }
         }
-        else if (Input.GetMouseButtonUp(1))
+        else if (InputManager.Inputs.Default.Throw.WasReleasedThisFrame())
+
         {
+            forceIndicator.fillAmount = 0;
+
             GameObject temp = Instantiate(objects[selected].obj, transform.position + transform.forward * distance, transform.rotation);
             temp.GetComponent<Rigidbody>().AddForce(transform.forward * force, ForceMode.VelocityChange);
             force = forceMin;
